@@ -4,4 +4,4 @@
 wget -qO - http://icanhazip.com
 
 # this is another way of getting my public ip
-#curl icanhazip.com
+#curl -s icanhazip.com
