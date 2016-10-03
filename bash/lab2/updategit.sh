@@ -2,8 +2,9 @@
 
 # this script saves me from remembering git commands
 
-#this is better than blindly using $@
+#this would be better than blindly using $1
+#should at least be checking if $1 has anything in it
 #read -p "Update message? " message
 git add -A
-git commit -m "$@"
+git commit -m "$1"
 git push
