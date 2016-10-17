@@ -5,8 +5,12 @@
 #addresses of the interfaces, also using ifconfig output. 
 #Parse the output of route -n to display the ip address of the default gateway.
 
+declare -a ips
+
 interfacenames=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`)
-ips=(`ifconfig ${interfacenames[0]} | grep 'inet addr' | sed -e 's/  *inet addr://'| sed -e 's/ .*//'` `ifconfig ${interfacenames[1]} | grep 'inet addr' | sed -e 's/  *inet addr://'| sed -e 's/ .*//'`)
+ips[0]=`ifconfig ${interfacenames[0]} | grep 'inet addr' | sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
+ips[1]=`ifconfig ${interfacenames[1]} | grep 'inet addr' | sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
+
 gatewayip=`route -n|grep '^0.0.0.0 '|awk '{print $2}'`
 
 cat <<EOF
