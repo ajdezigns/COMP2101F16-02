@@ -5,6 +5,17 @@
 declare -i count
 declare -i sides
 
+## Functions
+function showUsage {
+  echo "Usage: $0 [-h] [-c #] [-s #]"
+}
+function errorMessage {
+#  echo "***ERROR: $@" >&2
+  prog=`basename $0`
+  echo "${prog}: ${1:-Unknown Error - a moose bit my sister once...}" >&2
+
+}
+
 ## Process the command line
 # set some reasonable defaults
 count=0
@@ -12,7 +23,7 @@ sides=0
 while [ $# -gt 0 ]; do
 	case "$1" in
 	-h )
-		echo "Usage: $0 [-h] [-c #] [-s #]"
+		showUsage
 		exit 0
 		;;
 	-c )
@@ -20,7 +31,7 @@ while [ $# -gt 0 ]; do
       count=$2
       shift
     else
-      echo "Number required for -c, from 1 to 5" >&2
+      errorMessage "Number required for -c, from 1 to 5"
       exit 2
     fi
     ;;
@@ -30,17 +41,17 @@ while [ $# -gt 0 ]; do
         sides=$2
         shift
       else
-        echo "Number required for -s, from 4 to 20" >&2
+        errorMessage "Number required for -s, from 4 to 20"
         exit 2
       fi
     else
-      echo "Number required for -s, from 4 to 20" >&2
+      errorMessage "Number required for -s, from 4 to 20"
       exit 2
     fi
     ;;
 	* )
-		echo "Usage: $0 [-h] [-c #] [-s #]"
-		echo "Argument '$1' not recognized">&2
+		showUsage
+		errorMessage "Argument '$1' not recognized"
 		exit 2
 		;;
 	esac
